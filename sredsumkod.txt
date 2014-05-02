@@ -1,0 +1,30 @@
+ALTER PROCEDURE DBA ."sredsumkod" ( in kod char(10), out srd int)
+/* RESULT ( column_name, ... ) */
+BEGIN
+DECLARE sum int;
+DECLARE cnt int;
+DECLARE srdproc int;
+select first_c into srdproc from abonenty where kode=kod;
+ if srdproc>0 then set cnt=1 else set cnt=0 end if;
+ if srdproc>0 then set sum=srdproc else set sum=0 end if;
+select second_c into srdproc from abonenty where kode=kod;
+ if srdproc>0 then set cnt=cnt+1  end if;
+ if srdproc>0 then set sum=sum+srdproc end if;
+select third_c into srdproc from abonenty where kode=kod;
+ if srdproc>0 then set cnt=cnt+1  end if;
+ if srdproc>0 then set sum=sum+srdproc end if;
+select fourth_c into srdproc from abonenty where kode=kod;
+ if srdproc>0 then set cnt=cnt+1  end if;
+ if srdproc>0 then set sum=sum+srdproc end if;
+select fifth_c into srdproc from abonenty where kode=kod;
+ if srdproc>0 then set cnt=cnt+1  end if;
+ if srdproc>0 then set sum=sum+srdproc end if;
+select sixth_c into srdproc from abonenty where kode=kod;
+ if srdproc>0 then set cnt=cnt+1  end if;
+ if srdproc>0 then set sum=sum+srdproc end if;
+select seventh_c into srdproc from abonenty where kode=kod;
+ if srdproc>0 then set cnt=cnt+1  end if;
+ if srdproc>0 then set sum=sum+srdproc end if;
+
+  if cnt>0 then set srd=sum/cnt else set srd=0 end if;
+END

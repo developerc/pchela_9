@@ -1,0 +1,3 @@
+2013-10-06 21:19
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;2
+----------------------

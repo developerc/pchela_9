@@ -1,0 +1,30 @@
+2013-10-28 16:01
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;71
+----------------------
+2013-10-28 16:02
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;3;71
+----------------------
+2013-10-28 16:04
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;5;71
+----------------------
+2013-10-28 16:06
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;71
+----------------------
+2013-10-28 16:19
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;3;71
+----------------------
+2013-10-28 16:21
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;71
+----------------------
+2013-10-28 16:21
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;2;2;71
+----------------------
+2013-10-28 16:21
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;2;9;71
+----------------------
+2013-10-28 16:37
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;71
+----------------------
+2013-10-28 17:04
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;1;5;71
+----------------------

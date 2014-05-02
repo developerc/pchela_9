@@ -1,0 +1,63 @@
+object Form3: TForm3
+  Left = 131
+  Top = 24
+  Width = 216
+  Height = 179
+  Caption = 'Form3'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object LabeledEdit1: TLabeledEdit
+    Left = 32
+    Top = 32
+    Width = 113
+    Height = 21
+    EditLabel.Width = 111
+    EditLabel.Height = 13
+    EditLabel.Caption = #1042#1074#1077#1076#1080' '#1085#1086#1084#1077#1088' '#1084#1072#1096#1080#1085#1099
+    TabOrder = 0
+    OnKeyDown = LabeledEdit1KeyDown
+  end
+  object Button1: TButton
+    Left = 32
+    Top = 80
+    Width = 49
+    Height = 25
+    Caption = #1054#1050
+    TabOrder = 1
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 96
+    Top = 80
+    Width = 49
+    Height = 25
+    Caption = #1054#1050
+    TabOrder = 2
+    OnClick = Button2Click
+  end
+  object ADOCommand1: TADOCommand
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 40
+    Top = 112
+  end
+  object ADODataSet1: TADODataSet
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 80
+    Top = 112
+  end
+  object ADOConnection1: TADOConnection
+    ConnectionString = 'FILE NAME=C:\SA9\patch_to_base.udl'
+    Provider = 'C:\SA9\patch_to_base.udl'
+    Left = 8
+    Top = 112
+  end
+end

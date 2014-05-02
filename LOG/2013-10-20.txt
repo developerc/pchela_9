@@ -1,0 +1,45 @@
+2013-10-20 21:07
+OnSelectCell update cqueue set col=:PCOL,row=:PROW where car=:PCAR;1;10;2
+----------------------
+2013-10-20 21:07
+OnSelectCell update cqueue set col=:PCOL,row=:PROW where car=:PCAR;1;1;1
+----------------------
+2013-10-20 21:07
+OnSelectCell update cqueue set col=:PCOL,row=:PROW where car=:PCAR;2;1;2
+----------------------
+2013-10-20 21:07
+OnSelectCell update cqueue set col=:PCOL,row=:PROW where car=:PCAR;3;1;4
+----------------------
+2013-10-20 21:09
+OnSelectCell update cqueue set col=:PCOL,row=:PROW where car=:PCAR;1;7;2
+----------------------
+2013-10-20 21:10
+OnSelectCell update cqueue set col=:PCOL,row=:PROW where car=:PCAR;2;7;7
+----------------------
+2013-10-20 21:10
+OnSelectCell update cqueue set col=:PCOL,row=:PROW where car=:PCAR;3;7;6
+----------------------
+2013-10-20 21:10
+OnSelectCell update cqueue set col=:PCOL,row=:PROW where car=:PCAR;4;7;4
+----------------------
+2013-10-20 21:10
+OnSelectCell update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;1;1
+----------------------
+2013-10-20 21:10
+OnSelectCell update cqueue set col=:PCOL,row=:PROW where car=:PCAR;1;1;3
+----------------------
+2013-10-20 21:10
+OnSelectCell update cqueue set col=:PCOL,row=:PROW where car=:PCAR;2;1;2
+----------------------
+2013-10-20 21:10
+OnSelectCell update cqueue set col=:PCOL,row=:PROW where car=:PCAR;3;1;7
+----------------------
+2013-10-20 21:10
+OnSelectCell update cqueue set col=:PCOL,row=:PROW where car=:PCAR;4;1;4
+----------------------
+2013-10-20 21:10
+OnSelectCell update cqueue set col=:PCOL,row=:PROW where car=:PCAR;5;1;6
+----------------------
+2013-10-20 21:10
+OnSelectCell update cqueue set col=:PCOL,row=:PROW where car=:PCAR;6;1;5
+----------------------

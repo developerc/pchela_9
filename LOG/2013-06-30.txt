@@ -1,0 +1,180 @@
+2013-06-30 20:37
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;6;2
+----------------------
+2013-06-30 20:43
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;3;2
+----------------------
+2013-06-30 20:54
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;5;2
+----------------------
+2013-06-30 20:57
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;6;2
+----------------------
+2013-06-30 21:00
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;7;2
+----------------------
+2013-06-30 21:02
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;2
+----------------------
+2013-06-30 21:02
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;6;1
+----------------------
+2013-06-30 21:02
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;1;6;2
+----------------------
+2013-06-30 21:02
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;2
+----------------------
+2013-06-30 21:04
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;3;1
+----------------------
+2013-06-30 21:04
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;1;4;1
+----------------------
+2013-06-30 21:04
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;6;2
+----------------------
+2013-06-30 21:04
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;5;2
+----------------------
+2013-06-30 21:04
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;7;3
+----------------------
+2013-06-30 21:04
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;1;5;1
+----------------------
+2013-06-30 21:05
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;1
+----------------------
+2013-06-30 21:09
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;9;2
+----------------------
+2013-06-30 21:09
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;1;9;3
+----------------------
+2013-06-30 21:09
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;2;9;1
+----------------------
+2013-06-30 21:10
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;7;1
+----------------------
+2013-06-30 21:10
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;6;3
+----------------------
+2013-06-30 21:10
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;2
+----------------------
+2013-06-30 21:24
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;0;1
+----------------------
+2013-06-30 21:24
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;1;2
+----------------------
+2013-06-30 21:25
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;2;2
+----------------------
+2013-06-30 21:31
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;1;2
+----------------------
+2013-06-30 21:31
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;2
+----------------------
+2013-06-30 21:32
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;1;2
+----------------------
+2013-06-30 21:32
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;3;2
+----------------------
+2013-06-30 21:32
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;5;1
+----------------------
+2013-06-30 21:40
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;2
+----------------------
+2013-06-30 21:45
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;3;2
+----------------------
+2013-06-30 21:47
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;2;2
+----------------------
+2013-06-30 21:48
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;2
+----------------------
+2013-06-30 21:50
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;3;2
+----------------------
+2013-06-30 21:54
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;2
+----------------------
+2013-06-30 21:57
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;7;2
+----------------------
+2013-06-30 21:59
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;2
+----------------------
+2013-06-30 22:00
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;3;2
+----------------------
+2013-06-30 22:02
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;2
+----------------------
+2013-06-30 22:09
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;6;3
+----------------------
+2013-06-30 22:10
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;7;2
+----------------------
+2013-06-30 22:10
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;2
+----------------------
+2013-06-30 22:16
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;3;2
+----------------------
+2013-06-30 22:16
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;8;2
+----------------------
+2013-06-30 22:17
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;4;2
+----------------------
+2013-06-30 22:33
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;3;2
+----------------------
+2013-06-30 22:35
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;7;2
+----------------------
+2013-06-30 22:40
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;7;2
+----------------------
+2013-06-30 22:42
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;7;1
+----------------------
+2013-06-30 22:43
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;9;1
+----------------------
+2013-06-30 22:44
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;10;4
+----------------------
+2013-06-30 22:45
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;6;1
+----------------------
+2013-06-30 22:45
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;5;3
+----------------------
+2013-06-30 22:55
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;8;7
+----------------------
+2013-06-30 22:55
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;2;1;7
+----------------------
+2013-06-30 22:55
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;1;0;5
+----------------------
+2013-06-30 22:55
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;2;1;1
+----------------------
+2013-06-30 22:55
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;2;0;2
+----------------------
+2013-06-30 22:56
+KeyDown update cqueue set col=:PCOL,row=:PROW where car=:PCAR;0;7;5
+----------------------

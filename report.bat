@@ -1,0 +1,1 @@
+dbisql -c "uid=DBA;pwd=SQL" -onerror exit script_main.sql

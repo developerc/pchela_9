@@ -1,0 +1,296 @@
+// SMSC.RU API для Delphi 7 (www.smsc.ru) версия 2.4 (22.10.2011)
+unit smsc_api;
+
+interface
+
+uses IdHTTP, IdURI, IdMessage, IdSMTP, IdStrings, SysUtils, Forms, Classes, DateUtils, Types, Windows;
+
+const
+	// Константы с параметрами отправки
+	SMSC_LOGIN: String = '<developerc>';			// логин клиента
+	SMSC_PASSWORD: String = '<borland>';	// пароль или MD5-хеш пароля в нижнем регистре
+	SMSC_POST: Boolean = False;				// использовать метод POST
+	SMSC_CHARSET: String = 'windows-1251';	// кодировка сообщения (utf-8 или koi8-r), по умолчанию используется windows-1251
+	SMSC_DEBUG: Boolean = False;			// флаг отладки
+
+	// Константы для отправки SMS по SMTP
+	SMTP_FROM: String = 'api@smsc.ru';		// e-mail адрес отправителя
+	SMTP_SERVER: String = 'send.smsc.ru';	// адрес smtp сервера
+	SMTP_LOGIN: String = '';				// логин для smtp сервера
+	SMTP_PASSWORD: String = '';				// пароль для smtp сервера
+
+type
+	SMSC = class
+	public
+		// Общедоступные методы класса SMSС
+		function send_sms(phones: String; mes: String; translit: Integer = 0; time: String = ''; id: Integer = 0; format: Integer = 0; sender: String = ''; query: String = ''): TStringDynArray;
+		procedure send_sms_mail(phones: String; mes: String; translit: Integer = 0; time: String = ''; id: Integer = 0; format: Integer = 0; senderid: String = '');
+		function get_sms_cost(phones: String; mes: String; translit: Integer = 0; format: Integer = 0; sender: String = ''; query: String = ''): TStringDynArray;
+		function get_status(id: Integer; phone: String): TStringDynArray;
+		function get_balance: String;
+
+	private
+		// Приватные методы класса SMSС
+		function _smsc_send_cmd(cmd: String; arg: String): TStringDynArray;
+		function _urlencode(str: String): String;
+		procedure _print_debug(str: String);
+		function _ifs(cond: Boolean; val1: String; val2: String): String;
+	end;
+
+var
+	formats: array[1..6] of String = ('flash=1', 'push=1', 'hlr=1', 'bin=1', 'bin=2', 'ping=1');
+
+implementation
+
+uses Unit1;
+
+// Метод отправки SMS
+//
+// обязательные параметры:
+//
+// phones - список телефонов через запятую или точку с запятой
+// mes - отправляемое сообщение
+//
+// необязательные параметры:
+//
+// translit - переводить или нет в транслит
+// time - необходимое время доставки в виде строки (DDMMYYhhmm, h1-h2, 0ts, +m)
+// id - идентификатор сообщения. Представляет собой 32-битное число в диапазоне от 1 до 2147483647.
+// format - формат сообщения (0 - обычное sms, 1 - flash-sms, 2 - wap-push, 3 - hlr, 4 - bin, 5 - bin-hex, 6 - ping-sms)
+// sender - имя отправителя (Sender ID). Для отключения Sender ID по умолчанию необходимо в качестве имени
+// передать пустую строку или точку.
+// query - строка дополнительных параметров, добавляемая в URL-запрос ('valid=01:00&maxsms=3')
+//
+// возвращает массив (<id>, <количество sms>, <стоимость>, <баланс>) в случае успешной отправки
+// либо (<id>, -<код ошибки>) в случае ошибки
+
+function SMSC.send_sms(phones: String; mes: String; translit: Integer = 0; time: String = ''; id: Integer = 0; format: Integer = 0; sender: String = ''; query: String = ''): TStringDynArray;
+begin
+	Result := _smsc_send_cmd('send', 'cost=3&charset=' + SMSC_CHARSET + '&phones=' + _urlencode(phones) + '&mes=' + _urlencode(mes) + '&id=' + IntToStr(id) + '&translit=' + IntToStr(translit) +
+							_ifs(format > 0, '&' + formats[format], '') + _ifs(sender <> '', '&sender=' + _urlencode(sender), '') + _ifs(time <> '', '&time=' + _urlencode(time), '') + _ifs(query <> '', '&' + query, ''));
+
+	// (id, cnt, cost, balance) или (id, -error)
+
+	if SMSC_DEBUG then
+		if StrToInt(Result[1]) > 0 then
+			_print_debug('Сообщение отправлено успешно. ID: ' + Result[0] + ', всего SMS: ' + Result[1]
+						+ ', стоимость: ' + Result[2] + ' руб., баланс: ' + Result[3] + ' руб.')
+		else
+			_print_debug('Ошибка №' + Result[1][2] + ', ID: ' + Result[0]);
+end;
+
+// SMTP версия метода отправки SMS
+
+procedure SMSC.send_sms_mail(phones: String; mes: String; translit: Integer = 0; time: String = ''; id: Integer = 0; format: Integer = 0; senderid: String = '');
+var
+	msg: TIdMessage;
+begin
+	msg := TIdMessage.Create(nil);
+
+	with TIdSMTP.Create(nil) do
+	begin
+		Port := 25;
+		Host := SMTP_SERVER;
+
+   		if SMTP_LOGIN <> '' then
+        begin
+			Username := SMTP_LOGIN;
+			Password := SMTP_PASSWORD;
+        end;
+
+		msg.Recipients.EMailAddresses := 'send@send.smsc.ru';
+		msg.From.Address := SMTP_FROM;
+		msg.CharSet := SMSC_CHARSET;
+		msg.Body.Add(SMSC_LOGIN + ':' + SMSC_PASSWORD + ':' + IntToStr(id) + ':' + time + ':' + IntToStr(translit) + ',' + IntToStr(format) + ',' + senderid + ':' + phones + ':' + mes);
+
+		Connect;
+		Send(msg);
+		Disconnect;
+		Destroy;
+	end;
+
+	msg.Destroy;
+end;
+
+// Метод получения стоимости SMS
+//
+// обязательные параметры:
+//
+// phones - список телефонов через запятую или точку с запятой
+// message - отправляемое сообщение
+//
+// необязательные параметры:
+//
+// translit - переводить или нет в транслит
+// format - формат сообщения (0 - обычное sms, 1 - flash-sms, 2 - wap-push, 3 - hlr, 4 - bin, 5 - bin-hex, 6 - ping-sms)
+// sender - имя отправителя (Sender ID)
+// query - строка дополнительных параметров, добавляемая в URL-запрос ('list=79999999999:Ваш пароль: 123'#13#10 + '78888888888:Ваш пароль: 456')
+//
+// возвращает массив (<стоимость>, <количество sms>) либо (0, -<код ошибки>) в случае ошибки
+
+function SMSC.get_sms_cost(phones: String; mes: String; translit: Integer = 0; format: Integer = 0; sender: String = ''; query: String = ''): TStringDynArray;
+begin
+	Result := _smsc_send_cmd('send', 'cost=1&charset=' + SMSC_CHARSET + '&phones=' + _urlencode(phones) + '&mes=' + _urlencode(mes) + '&translit=' + IntToStr(translit) +
+							_ifs(format > 0, '&' + formats[format], '') + _ifs(sender <> '', '&sender=' + _urlencode(sender), '') + _ifs(query <> '', '&' + query, ''));
+
+	// (cost, cnt) или (0, -error)
+
+	if SMSC_DEBUG then
+		if StrToInt(Result[1]) > 0 then
+			_print_debug('Стоимость рассылки: ' + Result[0] + ' руб. Всего SMS: ' + Result[1])
+		else
+			_print_debug('Ошибка №' + Result[1][2]);
+end;
+
+// Метод проверки статуса отправленного SMS или HLR-запроса
+//
+// id - ID cообщения
+// phone - номер телефона
+//
+// возвращает массив:
+// для отправленного SMS (<статус>, <время изменения>, <код ошибки sms>)
+// для HLR-запроса (<статус>, <время изменения>, <код ошибки sms>, <код страны регистрации>, <код оператора абонента>,
+// <название страны регистрации>, <название оператора абонента>, <название роуминговой страны>, <название роумингового оператора>,
+// <код IMSI SIM-карты>, <номер сервис-центра>)
+// либо (0, -<код ошибки>) в случае ошибки
+
+function SMSC.get_status(id: Integer; phone: String): TStringDynArray;
+var
+	ans: String;
+	TZInfo: TIME_ZONE_INFORMATION;
+begin
+	Result := _smsc_send_cmd('status', 'phone=' + _urlencode(phone) + '&id=' + IntToStr(id));
+
+	// (status, time, err) или (0, -error)
+
+	if SMSC_DEBUG then
+		if (Result[1] <> '') and (StrToInt(Result[1]) >= 0) then
+		begin
+			ans := 'Статус SMS = ' + Result[0];
+			GetTimeZoneInformation(TZInfo);
+			if StrToInt(Result[1]) > 0 then ans := ans + ', время изменения статуса - ' + DateTimeToStr(UnixToDateTime(StrToInt64(Result[1]) - TZInfo.Bias * 60));
+			_print_debug(ans);
+		end
+		else
+			_print_debug('Ошибка №' + Result[1][2]);
+end;
+
+// Метод получения баланса
+//
+// без параметров
+//
+// возвращает баланс в виде строки или пустую строку в случае ошибки
+
+function SMSC.get_balance: String;
+var
+	bal: TStringDynArray;
+begin
+	bal := _smsc_send_cmd('balance', ''); // (balance) или (0, -error)
+
+	if SMSC_DEBUG then
+		if Length(bal) = 1 then
+			_print_debug('Сумма на счете: ' + bal[0] + ' руб.')
+		else
+			_print_debug('Ошибка №' + bal[1][2]);
+
+	if Length(bal) = 1 then
+		Result := bal[0]
+	else
+		Result := '';
+end;
+
+// ПРИВАТНЫЕ МЕТОДЫ
+//
+// Метод вызова запроса. Формирует URL и делает 3 попытки чтения
+
+function SMSC._smsc_send_cmd(cmd: String; arg: String): TStringDynArray;
+var
+	par: TStringStream;
+	aurl, s: String;
+	cnt: Integer;
+begin
+	arg := 'login=' + _urlencode(SMSC_LOGIN) + '&psw=' + _urlencode(SMSC_PASSWORD) + '&fmt=1&' + arg;
+	aurl := 'http://smsc.ru/sys/' + cmd + '.php';
+
+	with TIdHTTP.Create(nil) do
+	begin
+		cnt := 0;
+
+		repeat
+			if cnt > 0 then Sleep(2000);
+
+			if SMSC_POST then
+			begin
+				par := TStringStream.Create(arg);
+				Request.ContentType := 'application/x-www-form-urlencoded';
+				s := Post(aurl, par);
+				par.Destroy;
+			end
+			else
+				s := Get(aurl + '?' + arg);
+
+			Inc(cnt);
+		until (s <> '') or (cnt = 3);
+
+		if s = '' then
+		begin
+			if SMSC_DEBUG then
+				_print_debug('Ошибка чтения адреса: ' + aurl + '?' + arg);
+
+			s := ','; // фиктивный ответ
+		end;
+
+		Destroy;
+	end;
+
+	cnt := 1;
+	repeat
+		SetLength(Result, cnt);
+		SplitString(s, ',', Result[cnt - 1], s);
+        Inc(cnt);
+	until (s = '');
+
+end;
+
+// кодирование параметра в http-запросе
+
+function SMSC._urlencode(str: String): String;
+begin
+	Result := TIdURI.ParamsEncode(str);
+end;
+
+// вывод отладочной информации
+
+procedure SMSC._print_debug(str: String);
+begin
+	with Application do MessageBox(PAnsiChar(str), '');
+end;
+
+function SMSC._ifs(cond: Boolean; val1: String; val2: String): String;
+begin
+	if cond then
+    	Result := val1
+    else
+    	Result := val2;
+end;
+
+end.
+
+// Examples:
+// var
+// sms: SMSC;
+// ret: TStringDynArray;
+// balance: String;
+// begin
+// sms := SMSC.Create;
+// ret := sms.send_sms('79999999999', 'Ваш пароль: 123', 1);
+// ret := sms.send_sms('79999999999', 'http://smsc.ru'#13#10 + 'SMSC.RU', 0, '', 0, 0, '', 'maxsms=3');
+// ret := sms.send_sms('79999999999', '0605040B8423F0DC0601AE02056A0045C60C037761702E736D73632E72752F0001037761702E736D73632E7275000101', 0, '', 0, 5);
+// ret := sms.send_sms('79999999999', '', 0, '', 0, 3);
+// ret := sms.get_sms_cost('79999999999', 'Вы успешно зарегистрированы!');
+// sms.send_sms_mail('79999999999', 'Ваш пароль: 123', 0, '0101121000', 0, 1);
+// ret := sms.get_status(12345, '79999999999');
+// balance := sms.get_balance;
+// sms.Destroy;
+// end;
+

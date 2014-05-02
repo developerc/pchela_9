@@ -1,0 +1,1 @@
+dbisql -c "uid=DBA;pwd=SQL" -onerror exit report_smena.sql
