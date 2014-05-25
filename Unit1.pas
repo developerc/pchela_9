@@ -4245,7 +4245,7 @@ case Key of  //нажатие на поле "адрес"
 186,188,190,219,221,222,65..90 : begin
  slstrt:=LabeledEdit4.SelStart;
 
- zapr:= 'SELECT * FROM streets where street like ''' + LabeledEdit4.Text + '%''';
+ zapr:= 'SELECT street FROM streets where street like ''' + LabeledEdit4.Text + '%''';
  //ShowMessage(zapr);
  with ADOCommand1 do begin       //есть ли такой код в таблице улиц
   CommandText := zapr;
@@ -4288,6 +4288,10 @@ VK_UP : begin
   else ShowMessage('ѕерва€ запись!');
  end
  else ShowMessage('«аписей не найдено');
+end;
+VK_RIGHT : begin
+ LabeledEdit4.Text := LabeledEdit4.Text + ' ';
+ With LabeledEdit4 do SelStart:=Length(Text);
 end;
 end;
 end;

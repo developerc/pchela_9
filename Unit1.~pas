@@ -2978,9 +2978,10 @@ StringGrid1.SetFocus;
   else ShowMessage('Такого водителя нет!');
 
   params:=TStringList.Create;
-  params.Add('row=1');
+ // params.Add('row=1');
+  params.Add('point_id=1');
   params.Add('state=' + '0');
-  params.Add('delzak=0');
+  //params.Add('delzak=0');
 
   idHTTP1.Post(RemoteHost+'/api/' + LgPs + '/qpush',params);
   params.Free;
